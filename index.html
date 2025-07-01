@@ -2,224 +2,185 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Quiz: Doenças Bacterianas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz de Biologia</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&family=Roboto&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
 
     body {
+      margin: 0;
+      padding: 0;
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #e0f2e9 25%, #a7d8a7 100%);
-      padding: 30px 20px;
-      max-width: 650px;
-      margin: auto;
-      color: #2d3a2f;
-      user-select: none;
-      background-image:
-        radial-gradient(circle at 10% 20%, #a3c59d 1px, transparent 2px),
-        radial-gradient(circle at 20% 40%, #c1e1c1 1px, transparent 2px),
-        radial-gradient(circle at 70% 80%, #91b37b 1px, transparent 2px);
-      background-size: 60px 60px;
-      background-repeat: repeat;
+      background: url('https://cdn.pixabay.com/photo/2021/04/01/14/36/bacteria-6140892_960_720.png') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(5px);
+      color: #1e2d24;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
     }
+
     h1 {
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      font-size: 2.8rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2rem;
       text-align: center;
+      color: #0e5136;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 12px 20px;
+      border-radius: 12px;
       margin-bottom: 20px;
-      color: #1a4429;
-      position: relative;
-      user-select: text;
-    }
-    h1::before {
-      content: "🧫 ";
-      font-size: 2.5rem;
-      position: absolute;
-      left: -40px;
-      top: 0;
-    }
-    .question {
-      background: #f5fcf5;
-      padding: 20px 25px;
-      margin-bottom: 25px;
-      border-radius: 18px;
-      border: 3px solid #7bb07b;
-      box-shadow: 0 8px 14px rgba(79, 118, 70, 0.2);
-      font-size: 1.1rem;
-      position: relative;
-      user-select: text;
-    }
-    .question h2 {
-      font-family: 'Merriweather', serif;
-      font-weight: 700;
-      margin-bottom: 15px;
-      padding-left: 40px;
-      position: relative;
-    }
-    .question h2::before {
-      content: "🔬";
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: 1.5rem;
-      line-height: 1;
-      user-select: none;
-    }
-    button {
-      margin: 8px 0;
-      padding: 14px 20px;
       width: 100%;
-      font-size: 1.05rem;
-      border: 2.5px solid #4e844e;
-      border-radius: 25px;
-      background-color: #a2d09f;
-      color: #1f3a1f;
+      max-width: 600px;
+    }
+
+    .question {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 18px;
+      margin-bottom: 25px;
+      border-radius: 14px;
+      border-left: 6px solid #3fa97d;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .question h2 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #effaf1;
+      border: 1px solid #a8d5c2;
       cursor: pointer;
-      transition: background-color 0.3s, border-color 0.3s;
-      font-weight: 600;
-      user-select: none;
-      box-shadow: 0 3px 6px rgba(54, 108, 54, 0.3);
+      transition: background-color 0.2s;
+      font-size: 0.95rem;
     }
-    button:hover:not(:disabled) {
-      background-color: #84b36e;
-      border-color: #3b6d3b;
-      color: #e6f2e6;
+
+    label:hover {
+      background-color: #d4f2de;
     }
-    button:disabled {
-      background-color: #c6dbc4;
-      border-color: #8ca18c;
-      color: #707f70;
-      cursor: default;
-      box-shadow: none;
+
+    input[type="radio"] {
+      margin-right: 10px;
     }
-    #feedback {
-      margin-top: 18px;
-      font-weight: 700;
-      font-size: 1.25rem;
-      user-select: text;
+
+    button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      width: 100%;
+      max-width: 200px;
+      margin: 5px auto;
+      display: block;
     }
-    #feedback.correto {
-      color: #2e7d32;
+
+    #next-btn {
+      background-color: #3fa97d;
+      color: white;
     }
-    #feedback.errado {
-      color: #b71c1c;
-    }
-    #next-btn, #back-btn {
-      margin-top: 18px;
-      width: 48%;
-      display: inline-block;
-      font-weight: 700;
-      box-shadow: 0 4px 9px rgba(45, 74, 45, 0.3);
-    }
-    #next-btn:hover, #back-btn:hover {
-      box-shadow: 0 6px 15px rgba(25, 61, 25, 0.6);
-    }
+
     #back-btn {
       background-color: #f0ad4e;
-      color: #4a3b1f;
-      border-color: #c67f27;
-      float: left;
+      color: white;
     }
-    #back-btn:hover {
-      background-color: #e09231;
-      border-color: #a56317;
-      color: #f7f3e7;
-    }
-    #buttons-container {
-      overflow: hidden;
-      user-select: none;
-    }
-    #result {
-      text-align: center;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-top: 28px;
-      color: #2e7d32;
-      clear: both;
-      user-select: text;
-    }
+
     #reset-btn {
-      background-color: #c0392b;
-      margin-top: 28px;
-      width: 100%;
-      font-weight: 700;
-      box-shadow: 0 5px 14px rgba(158, 43, 25, 0.7);
-      border: 3px solid #8e2616;
-      border-radius: 28px;
-      user-select: none;
+      background-color: #d9534f;
+      color: white;
+      margin-top: 20px;
     }
-    #reset-btn:hover {
-      background-color: #992d22;
-      border-color: #6d1c11;
-      color: #fbeaea;
-      box-shadow: 0 7px 20px rgba(138, 28, 17, 0.9);
+
+    #feedback {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    #feedback.correto {
+      color: green;
+    }
+
+    #feedback.errado {
+      color: red;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      color: #0c3727;
+    }
+
+    #buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 600px) {
+      #buttons-container {
+        flex-direction: row;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .question h2 {
+        font-size: 1.1rem;
+      }
+
+      label {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Quiz: Doenças Bacterianas por Alimentos</h1>
 
+  <h1>🧫 Quiz Biologia: Doenças por Bactérias 🦠</h1>
   <div id="quiz-container"></div>
   <div id="feedback"></div>
+
   <div id="buttons-container">
-    <button id="back-btn" style="display:none;">Voltar</button>
-    <button id="next-btn" style="display:none;">Próxima</button>
+    <button id="back-btn" style="display: none;">⬅ Voltar</button>
+    <button id="next-btn" style="display: none;">➡ Próxima</button>
   </div>
+
   <div id="result"></div>
-  <button id="reset-btn" style="display:none;">Refazer Quiz</button>
+  <button id="reset-btn" style="display: none;">🔁 Refazer Quiz</button>
 
   <script>
     const quiz = [
-      {
-        pergunta: "1. Qual bactéria é associada com carne mal cozida e pode causar infecções graves?",
-        opcoes: ["Clostridium botulinum", "Escherichia coli (E. coli)", "Streptococcus", "Listeria"],
-        correta: 1
-      },
-      {
-        pergunta: "2. Qual é o principal sintoma do botulismo?",
-        opcoes: ["Diarreia intensa", "Tosse crônica", "Paralisia muscular", "Febre leve"],
-        correta: 2
-      },
-      {
-        pergunta: "3. Como a Salmonela geralmente é transmitida?",
-        opcoes: ["Pelo ar", "Pelo contato com água limpa", "Por ovos e carnes crus ou mal cozidos", "Por picadas de insetos"],
-        correta: 2
-      },
-      {
-        pergunta: "4. Qual dessas bactérias pode produzir toxinas letais em alimentos enlatados mal conservados?",
-        opcoes: ["E. coli", "Salmonella", "Clostridium botulinum", "Bacillus subtilis"],
-        correta: 2
-      },
-      {
-        pergunta: "5. Como prevenir infecções por E. coli?",
-        opcoes: ["Lavar bem as mãos e cozinhar carnes completamente", "Evitar frutas cítricas", "Tomar antibióticos preventivamente", "Evitar beber leite"],
-        correta: 0
-      },
-      {
-        pergunta: "6. Qual doença bacteriana causada por alimentos contaminados pode levar à insuficiência respiratória?",
-        opcoes: ["Botulismo", "Salmonelose", "Intoxicação por E. coli", "Listeriose"],
-        correta: 0
-      },
-      {
-        pergunta: "7. Qual é uma medida importante para evitar a salmonela em ovos?",
-        opcoes: ["Consumir ovos crus", "Cozinhar os ovos completamente", "Lavar ovos com água quente", "Guardar ovos fora da geladeira"],
-        correta: 1
-      },
-      {
-        pergunta: "8. Qual bactéria é frequentemente ligada a surtos de diarreia hemorrágica?",
-        opcoes: ["Clostridium botulinum", "Escherichia coli (E. coli)", "Salmonella", "Campylobacter"],
-        correta: 1
-      },
-      {
-        pergunta: "9. O botulismo é causado pela ingestão de toxinas produzidas por qual bactéria?",
-        opcoes: ["Salmonella", "Clostridium botulinum", "E. coli", "Listeria monocytogenes"],
-        correta: 1
-      },
-      {
-        pergunta: "10. Qual é a principal forma de prevenir todas essas infecções bacterianas por alimentos?",
-        opcoes: ["Uso correto da refrigeração e cozimento adequado dos alimentos", "Evitar alimentos orgânicos", "Consumir apenas alimentos industrializados", "Tomar antibióticos antes das refeições"],
-        correta: 0
-      }
+      { pergunta: "1. Qual bactéria está associada com carne mal cozida?", opcoes: ["Clostridium botulinum", "Escherichia coli (E. coli)", "Streptococcus", "Listeria"], correta: 1 },
+      { pergunta: "2. Principal sintoma do botulismo?", opcoes: ["Diarreia intensa", "Tosse crônica", "Paralisia muscular", "Febre leve"], correta: 2 },
+      { pergunta: "3. Como a Salmonela é transmitida?", opcoes: ["Pelo ar", "Por ovos/carnes crus", "Por insetos", "Por água limpa"], correta: 1 },
+      { pergunta: "4. Qual bactéria produz toxinas letais em enlatados?", opcoes: ["E. coli", "Salmonella", "Clostridium botulinum", "Bacillus subtilis"], correta: 2 },
+      { pergunta: "5. Como prevenir E. coli?", opcoes: ["Cozinhar carnes e lavar mãos", "Evitar frutas cítricas", "Tomar antibiótico", "Evitar leite"], correta: 0 },
+      { pergunta: "6. Qual pode levar à insuficiência respiratória?", opcoes: ["Botulismo", "Salmonelose", "Intoxicação por E. coli", "Listeriose"], correta: 0 },
+      { pergunta: "7. Prevenção da salmonela em ovos?", opcoes: ["Consumir crus", "Cozinhar bem", "Lavar com água quente", "Guardar fora da geladeira"], correta: 1 },
+      { pergunta: "8. Causa de diarreia hemorrágica?", opcoes: ["Botulinum", "E. coli", "Salmonella", "Campylobacter"], correta: 1 },
+      { pergunta: "9. Botulismo é causado por qual bactéria?", opcoes: ["Salmonella", "Clostridium botulinum", "E. coli", "Listeria monocytogenes"], correta: 1 },
+      { pergunta: "10. Prevenção geral dessas doenças?", opcoes: ["Refrigeração e cozimento adequado", "Evitar orgânicos", "Alimentos industrializados", "Tomar antibióticos"], correta: 0 }
     ];
 
     let indice = 0;
@@ -241,31 +202,23 @@
       const q = quiz[indice];
       let html = `<div class="question"><h2>${q.pergunta}</h2>`;
       q.opcoes.forEach((opcao, i) => {
-        // desabilitar opções depois de responder
         const disabled = respostas[indice] !== null ? "disabled" : "";
-        // marcar a opção selecionada
         const checked = respostas[indice] === i ? "checked" : "";
         html += `
-          <label style="display:block; margin-bottom:10px; cursor: pointer;">
+          <label>
             <input type="radio" name="opcao" value="${i}" ${disabled} ${checked} />
             ${opcao}
           </label>`;
       });
       html += `</div>`;
-
       container.innerHTML = html;
 
-      // mostrar botões
       backBtn.style.display = indice > 0 ? "inline-block" : "none";
       nextBtn.style.display = respostas[indice] !== null ? "inline-block" : "none";
-      nextBtn.innerText = (indice === quiz.length - 1) ? "Finalizar" : "Próxima";
+      nextBtn.innerText = (indice === quiz.length - 1) ? "✅ Finalizar" : "➡ Próxima";
 
-      // se já respondeu essa pergunta, mostrar feedback
-      if (respostas[indice] !== null) {
-        mostrarFeedback();
-      }
+      if (respostas[indice] !== null) mostrarFeedback();
 
-      // adicionar evento para escolher opção
       const radios = document.querySelectorAll('input[name="opcao"]');
       radios.forEach(radio => {
         radio.addEventListener("change", () => {
@@ -280,10 +233,10 @@
       const q = quiz[indice];
       const resposta = respostas[indice];
       if (resposta === q.correta) {
-        feedback.innerText = "✔️ Resposta correta!";
+        feedback.innerText = "✔️ Correto!";
         feedback.className = "correto";
       } else {
-        feedback.innerText = `❌ Resposta errada! A correta é: "${q.opcoes[q.correta]}"`;
+        feedback.innerText = `❌ Errado. Resposta certa: "${q.opcoes[q.correta]}"`;
         feedback.className = "errado";
       }
     }
@@ -322,8 +275,7 @@
       feedback.className = "";
 
       let acertos = respostas.filter((r, i) => r === quiz[i].correta).length;
-      resultDiv.innerText = `Você acertou ${acertos} de ${quiz.length} perguntas!`;
-
+      resultDiv.innerText = `🎓 Você acertou ${acertos} de ${quiz.length} perguntas!`;
       resetBtn.style.display = "inline-block";
     }
 
